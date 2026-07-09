@@ -1,0 +1,159 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+}
+
+.home {
+  padding: 20px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #222, #444);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 30px;
+  margin: 40px 0 20px;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.product-card {
+  width: 230px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 15px;
+}
+
+.product-info h3 {
+  margin: 0;
+}
+
+.product-info p {
+  color: #555;
+}
+
+.category {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+
+.collection-grid {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.collection-card {
+  width: 250px;
+  height: 180px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.collection-card:hover {
+  transform: translateY(-8px);
+}
+
+.collection-card h3 {
+  font-size: 24px;
+  color: #333;
+}
+
+.hero-btn {
+  margin-top: 25px;
+  padding: 12px 28px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  background: #e63946;
+  transform: scale(1.05);
+}
+
+.hero {
+  background: linear-gradient(135deg, #222, #444);
+  color: white;
+  text-align: center;
+  padding: 140px 20px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+.hero-btn {
+  margin-top: 25px;
+  padding: 12px 28px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  background: #e63946;
+  transform: scale(1.05);
+}
