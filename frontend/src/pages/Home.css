@@ -1,159 +1,566 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f8f8f8;
+* {
+  box-sizing: border-box;
 }
 
-.home {
-  padding: 20px;
-}
 
-.hero {
-  background: linear-gradient(135deg, #222, #444);
-  color: white;
-  text-align: center;
-  padding: 80px 20px;
-  border-radius: 10px;
-  margin-bottom: 40px;
-}
-
-.hero h1 {
-  font-size: 42px;
-  margin-bottom: 15px;
-}
-
-.hero p {
-  font-size: 18px;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 30px;
-  margin: 40px 0 20px;
-}
-
-.product-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-}
-
-.product-card {
-  width: 230px;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-  transition: 0.3s;
-}
-
-.product-card:hover {
-  transform: translateY(-6px);
-}
-
-.product-card img {
+.home-container {
   width: 100%;
-  height: 220px;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+
+
+/* ================= HERO ================= */
+
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 650px;
+}
+
+
+.hero-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-.product-info {
-  padding: 15px;
-}
 
-.product-info h3 {
-  margin: 0;
-}
 
-.product-info p {
-  color: #555;
-}
-
-.category {
-  color: #ff4d4d;
-  font-weight: bold;
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 500px;
 }
 
 
-.collection-grid {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  margin-top: 20px;
+.hero-overlay h1 {
+  font-size: 52px;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
 
-.collection-card {
-  width: 250px;
-  height: 180px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.3s;
-  cursor: pointer;
+
+.hero-overlay p {
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
-.collection-card:hover {
-  transform: translateY(-8px);
-}
 
-.collection-card h3 {
-  font-size: 24px;
-  color: #333;
-}
 
 .hero-btn {
-  margin-top: 25px;
-  padding: 12px 28px;
-  background: #ff4d4d;
-  color: white;
+  padding: 14px 35px;
   border: none;
-  border-radius: 8px;
-  font-size: 17px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.hero-btn:hover {
-  background: #e63946;
-  transform: scale(1.05);
-}
-
-.hero {
-  background: linear-gradient(135deg, #222, #444);
+  background: #b8860b;
   color: white;
-  text-align: center;
-  padding: 140px 20px;
-  border-radius: 15px;
-  margin-bottom: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.hero h1 {
-  font-size: 42px;
-  margin-bottom: 15px;
+
+
+.slider-dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.hero p {
+
+.slider-dots span {
+  width: 12px;
+  height: 12px;
+  background: white;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 5px;
+  cursor: pointer;
+}
+
+
+.slider-dots .active-dot {
+  background: #b8860b;
+}
+
+
+
+
+
+/* ================= OFFERS ================= */
+
+
+
+.offers-section {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+  padding: 50px 8%;
+}
+
+
+
+.offer-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 25px;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+
+
+.offer-icon {
+  font-size: 35px;
+}
+
+
+
+.offer-card h3 {
+  margin: 0;
   font-size: 18px;
 }
 
-.hero-btn {
-  margin-top: 25px;
-  padding: 12px 28px;
-  background: #ff4d4d;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 17px;
-  cursor: pointer;
-  transition: 0.3s;
+
+
+.offer-card p {
+  margin-top: 5px;
+  color: #777;
 }
 
-.hero-btn:hover {
-  background: #e63946;
-  transform: scale(1.05);
+
+
+
+
+/* ================= SECTION TITLE ================= */
+
+
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+
+.section-title h2 {
+  font-size: 36px;
+  color:#222;
+}
+
+
+.section-title p {
+  color:#777;
+}
+
+
+
+
+
+/* ================= CATEGORY ================= */
+
+
+.category-section,
+.products-section,
+.trending-section,
+.brands-section {
+  padding: 70px 8%;
+}
+
+
+
+.category-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+}
+
+
+
+.category-card {
+  position:relative;
+  overflow:hidden;
+  height:350px;
+}
+
+
+
+.category-card img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+
+
+.category-content {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  padding:20px;
+  background:linear-gradient(transparent,rgba(0,0,0,.8));
+  color:white;
+}
+
+
+
+.category-content button,
+.promo-content button,
+.home-product-card button {
+  background:#b8860b;
+  color:white;
+  border:none;
+  padding:10px 25px;
+  cursor:pointer;
+}
+
+
+
+
+
+/* ================= PROMO ================= */
+
+
+.promo-section {
+  padding:50px 8%;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+}
+
+
+
+.promo-banner {
+  position:relative;
+}
+
+
+
+.promo-banner img {
+  width:100%;
+  height:350px;
+  object-fit:cover;
+}
+
+
+
+.promo-content {
+  position:absolute;
+  top:50%;
+  left:10%;
+  transform:translateY(-50%);
+  color:white;
+}
+
+
+
+
+
+/* ================= BRANDS ================= */
+
+
+.brands-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:20px;
+}
+
+
+
+.brand-card {
+  height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+
+
+.brand-card img {
+  max-width:100%;
+  max-height:70px;
+}
+
+
+
+
+
+/* ================= PRODUCTS ================= */
+
+
+.product-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+}
+
+
+
+.home-product-card {
+  background:white;
+  box-shadow:0 5px 20px rgba(0,0,0,.1);
+  padding-bottom:20px;
+  text-align:center;
+}
+
+
+
+.home-product-card img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+}
+
+
+
+.home-product-card h3 {
+  margin-top:15px;
+}
+
+
+
+.home-product-card p {
+  color:#777;
+}
+
+
+
+
+
+
+/* ================= STATISTICS ================= */
+
+
+.stats-section {
+  background:#111;
+  color:white;
+  padding:60px 8%;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  text-align:center;
+}
+
+
+.stat-box h2 {
+  font-size:40px;
+  color:#d4af37;
+}
+
+
+
+
+
+/* ================= FOOTER ================= */
+
+
+.home-footer {
+  background:#222;
+  color:white;
+  padding:60px 8%;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:30px;
+}
+
+
+
+.footer-column h3 {
+  color:#d4af37;
+  margin-bottom:20px;
+}
+
+
+
+.footer-column p {
+  color:#ccc;
+  line-height:1.8;
+}
+
+
+
+
+
+/* ================= RESPONSIVE ================= */
+
+
+
+@media(max-width:992px){
+
+
+.offers-section,
+.category-grid,
+.product-grid {
+  grid-template-columns:repeat(2,1fr);
+}
+
+
+.brands-grid {
+  grid-template-columns:repeat(3,1fr);
+}
+
+
+.promo-section,
+.home-footer,
+.stats-section {
+  grid-template-columns:repeat(2,1fr);
+}
+
+
+.hero-overlay h1 {
+  font-size:38px;
+}
+
+
+}
+
+
+
+
+@media(max-width:600px){
+
+
+.hero-section {
+ height:450px;
+}
+
+
+.hero-overlay {
+ left:5%;
+}
+
+
+.hero-overlay h1 {
+ font-size:30px;
+}
+
+
+
+.offers-section,
+.category-grid,
+.product-grid,
+.brands-grid,
+.promo-section,
+.home-footer,
+.stats-section {
+
+ grid-template-columns:1fr;
+
+}
+
+
+.category-section,
+.products-section,
+.trending-section,
+.brands-section {
+ padding:40px 5%;
+}
+
+
+}
+
+/* ================= PREMIUM HOVER EFFECTS ================= */
+
+
+.category-card,
+.home-product-card,
+.brand-card {
+  transition: 0.4s ease;
+}
+
+
+.category-card:hover,
+.home-product-card:hover,
+.brand-card:hover {
+  transform: translateY(-8px);
+}
+
+
+
+
+
+.category-card img,
+.home-product-card img {
+  transition: 0.5s ease;
+}
+
+
+
+.category-card:hover img,
+.home-product-card:hover img {
+  transform: scale(1.08);
+}
+
+
+
+
+
+
+/* Section Heading Design */
+
+
+.section-title h2 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 12px;
+}
+
+
+.section-title h2::after {
+
+  content:"";
+  position:absolute;
+  width:60px;
+  height:3px;
+  background:#b8860b;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+
+}
+
+
+
+
+
+/* Button Hover */
+
+
+button {
+  transition:0.3s ease;
+}
+
+
+
+button:hover {
+
+  background:#8b6508;
+  transform:scale(1.05);
+
+}
+
+
+
+
+
+/* Brand Hover */
+
+
+.brand-card img {
+
+  transition:0.4s;
+
+}
+
+
+.brand-card:hover img {
+
+ transform:scale(1.1);
+
 }

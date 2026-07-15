@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./Products.css";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -45,41 +46,25 @@ function Products() {
   });
 
   return (
-    <div className="container">
+    <div className="products-page">
 
-      <h1 style={{ textAlign: "center" }}>👕 Products</h1>
+      <h1 className="products-title">Our Products</h1>
 
       {/* Search + Category */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "15px",
-          margin: "20px 0",
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="filter-section">
         <input
-          type="text"
-          placeholder="🔍 Search Product..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: "10px",
-            width: "260px",
-            borderRadius: "6px",
-            border: "1px solid #ccc",
-          }}
-        />
+  className="search-box"
+  type="text"
+  placeholder="🔍 Search Product..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+/>
 
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          style={{
-            padding: "10px",
-            borderRadius: "6px",
-          }}
-        >
+       <select
+  className="category-select"
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+>
           <option>All</option>
           <option>Men's Wear</option>
           <option>Women's Wear</option>
@@ -101,27 +86,15 @@ function Products() {
         }}
       >
         {filteredProducts.map((item) => (
-          <div
-            key={item.product_id}
-            style={{
-              width: "260px",
-              border: "1px solid #ddd",
-              borderRadius: "10px",
-              overflow: "hidden",
-              boxShadow: "0 3px 10px rgba(0,0,0,0.15)",
-            }}
-          >
-            <img
-              src={`/${item.image1}`}
-              alt={item.product_name}
-              style={{
-                width: "100%",
-                height: "250px",
-                objectFit: "cover",
-              }}
-            />
+          <div className="product-card" key={item.product_id}>
+            
+<img
+  src={`/${item.image1}`}
+  alt={item.product_name}
+  className="product-image"
+/>
 
-            <div style={{ padding: "15px" }}>
+           <div className="product-grid">
               <h3>{item.product_name}</h3>
 
               <p>{item.description}</p>
@@ -134,21 +107,20 @@ function Products() {
                 <strong>Color:</strong> {item.color}
               </p>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginTop: "15px",
-                }}
-              >
-                <button onClick={() => addToCart(item.product_id)}>
-                  🛒 Add to Cart
-                </button>
+              <div className="product-buttons">
+  <button
+    className="cart-btn"
+    onClick={() => addToCart(item.product_id)}
+  >
+    🛒 Add to Cart
+  </button>
 
-                <Link to={`/product/${item.product_id}`}>
-                  <button>View Details</button>
-                </Link>
-              </div>
+  <Link to={`/product/${item.product_id}`}>
+    <button className="details-btn">
+      View Details
+    </button>
+  </Link>
+</div>
             </div>
           </div>
         ))}

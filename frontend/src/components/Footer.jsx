@@ -249,4 +249,7 @@ const styles = {
   },
 };
 
+<<<<<<< Updated upstream
 export default Footer;
+=======
+>>>>>>> Stashed changes

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./Cart.css";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
   const loadCart = () => {
     axios
@@ -21,10 +24,11 @@ function Cart() {
 
   const removeItem = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/cart/${id}`);
+      const res = await axios.delete(
+        `http://localhost:5000/cart/${id}`
+      );
 
       alert(res.data.message);
-
       loadCart();
     } catch (err) {
       console.log(err);
@@ -32,74 +36,68 @@ function Cart() {
     }
   };
 
+  // Total Amount
+  const total = cart.reduce(
+    (sum, item) => sum + Number(item.price) * Number(item.quantity),
+    0
+  );
+
   return (
-    <div style={{ padding: "40px" }}>
-      <h1 style={{ textAlign: "center" }}>🛒 My Cart</h1>
+    <div className="cart-container">
+      <h1 className="cart-title">🛒 My Cart</h1>
 
       {cart.length === 0 ? (
-        <p style={{ textAlign: "center" }}>Your cart is empty.</p>
+        <p className="empty-cart">Your cart is empty.</p>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "20px",
-            justifyContent: "center",
-            marginTop: "30px",
-          }}
-        >
-          {cart.map((item) => (
-            <div
-              key={item.cart_id}
-              style={{
-                width: "250px",
-                border: "1px solid #ddd",
-                borderRadius: "10px",
-                overflow: "hidden",
-                boxShadow: "0 3px 10px rgba(0,0,0,0.15)",
-              }}
-            >
-              <img
-                src={`/${item.image1}`}
-                alt={item.product_name}
-                style={{
-                  width: "100%",
-                  height: "250px",
-                  objectFit: "cover",
-                }}
-              />
+        <>
+          <div className="cart-grid">
+            {cart.map((item) => (
+              <div className="cart-card" key={item.cart_id}>
+                <img
+                  className="cart-image"
+                  src={`/${item.image1}`}
+                  alt={item.product_name}
+                />
 
-              <div style={{ padding: "15px" }}>
-                <h3>{item.product_name}</h3>
+                <div className="cart-info">
+                  <h3>{item.product_name}</h3>
 
-                <p>{item.description}</p>
+                  <p>{item.description}</p>
 
-                <p>
-                  <strong>Color:</strong> {item.color}
-                </p>
+                  <p>
+                    <b>Color:</b> {item.color}
+                  </p>
 
-                <p>
-                  <strong>Quantity:</strong> {item.quantity}
-                </p>
+                  <p className="quantity">
+                    Quantity: {item.quantity}
+                  </p>
 
-                <button
-                  onClick={() => removeItem(item.cart_id)}
-                  style={{
-                    width: "100%",
-                    padding: "10px",
-                    background: "#dc3545",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Remove
-                </button>
+                  <h3 className="price">
+  ₹ {item.price || 0}
+</h3>
+
+                  <button
+                    className="remove-btn"
+                    onClick={() => removeItem(item.cart_id)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+
+          <div className="cart-summary">
+            <h2>Total : ₹ {total.toFixed(2)}</h2>
+
+           <button
+  className="checkout-btn"
+  onClick={() => navigate("/checkout")}
+>
+  Proceed to Checkout
+</button>
+          </div>
+        </>
       )}
     </div>
   );

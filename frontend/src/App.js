@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import Lookbook from "./pages/Lookbook";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/lookbook" element={<Lookbook />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
 
       <Footer />

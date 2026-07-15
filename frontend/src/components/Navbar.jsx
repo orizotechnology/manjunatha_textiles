@@ -1,62 +1,82 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
-function Navbar() {
+const Navbar = () => {
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+
   return (
-    <nav
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "15px 30px",
-        background: "#111",
-        color: "#fff",
-        position: "sticky",
-        top: 0,
-        zIndex: 1000,
-        flexWrap: "wrap",
-      }}
-    >
-      <h2 style={{ margin: 0 }}>
-        🛍 Manjunath Textiles
-      </h2>
+    <nav className="navbar">
 
-      <div
-        style={{
-          display: "flex",
-          gap: "18px",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        <Link to="/" style={link}>Home</Link>
 
-        <Link to="/products" style={link}>Products</Link>
-
-        <Link to="/collections" style={link}>Collections</Link>
-
-        <Link to="/gallery" style={link}>Gallery</Link>
-
-        <Link to="/lookbook" style={link}>Lookbook</Link>
-
-        <Link to="/about" style={link}>About</Link>
-
-        <Link to="/contact" style={link}>Contact</Link>
-
-        <Link to="/orders" style={link}>Orders</Link>
-
-        <Link to="/admin" style={link}>Admin</Link>
-
-        <Link to="/cart" style={link}>🛒 Cart</Link>
+      <div className="nav-logo">
+        <h2>
+          Manjunatha Textiles
+        </h2>
       </div>
+
+
+
+      <div className={menuOpen ? "nav-links active" : "nav-links"}>
+
+        <Link to="/">Home</Link>
+
+        <Link to="/collections">
+          Collections
+        </Link>
+
+        <Link to="/products">
+          Products
+        </Link>
+
+        <Link to="/gallery">
+          Gallery
+        </Link>
+
+        <Link to="/about">
+          About
+        </Link>
+
+        <Link to="/contact">
+          Contact
+        </Link>
+
+
+      </div>
+
+
+
+      <div className="nav-icons">
+
+        <span>
+          🔍
+        </span>
+
+
+        <Link to="/cart">
+          🛒
+        </Link>
+
+
+      </div>
+
+
+
+      <div 
+        className="menu-icon"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+
+        ☰
+
+      </div>
+
+
     </nav>
   );
-}
-
-const link = {
-  color: "#fff",
-  textDecoration: "none",
-  fontWeight: "500",
-  fontSize: "16px",
 };
+
 
 export default Navbar;
