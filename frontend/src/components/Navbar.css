@@ -18,10 +18,17 @@
 /* Logo */
 
 .nav-logo h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 25px;
-  color: #b8860b;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  color: #dd3813;
+  font-family: serif;
+  img{
+    height: 40px;
+    width: auto;
+  }
 }
 
 
