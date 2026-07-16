@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import logo from "../SMT_logo.svg";
 
 const Navbar = () => {
 
@@ -13,7 +14,8 @@ const Navbar = () => {
 
       <div className="nav-logo">
         <h2>
-          Manjunatha Textiles
+          <img src={logo} alt="Manjunath Textiles"  />
+          SRI MANJUNATHA TEXTILES
         </h2>
       </div>
 
