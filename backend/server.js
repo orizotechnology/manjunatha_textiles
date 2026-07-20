@@ -126,23 +126,53 @@ app.delete("/products/:id", (req, res) => {
 
 /* POST ORDER API */
 app.post("/orders", (req, res) => {
-    const { product_id, customer_name, quantity, address, phone } = req.body;
+
+    console.log(req.body);
+
+    const {
+        product_id,
+        customer_name,
+        quantity,
+        address,
+        phone
+    } = req.body;
+
 
     const sql = `
-        INSERT INTO orders (product_id, customer_name, quantity, address, phone)
+        INSERT INTO orders
+        (product_id, customer_name, quantity, address, phone)
         VALUES (?, ?, ?, ?, ?)
     `;
 
-    db.query(sql, [product_id, customer_name, quantity, address, phone], (err, result) => {
-        if (err) {
-            return res.status(500).json({ error: err });
-        }
 
-        res.json({
-            message: "Order placed successfully",
-            order_id: result.insertId
-        });
-    });
+    db.query(
+        sql,
+        [
+            product_id,
+            customer_name,
+            quantity,
+            address,
+            phone
+        ],
+        (err, result) => {
+
+            if (err) {
+                console.log("ORDER ERROR:", err);
+                return res.status(500).json({
+                    message: "Order insert failed",
+                    error: err
+                });
+            }
+
+
+            res.status(200).json({
+                message: "Order placed successfully",
+                order_id: result.insertId
+            });
+
+        }
+    );
+
 });
 
 
@@ -353,6 +383,7 @@ app.get("/cart", (req, res) => {
       p.description,
       p.image1,
       p.color,
+      p.price
       p.category_id
     FROM cart c
     JOIN products p
@@ -384,6 +415,63 @@ app.delete("/cart/:id", (req, res) => {
     }
   );
 });
+
+/* CLEAR CART */
+app.delete("/cart", (req, res) => {
+
+  db.query(
+    "DELETE FROM cart",
+    (err) => {
+
+      if (err) {
+        return res.status(500).json({
+          error: err
+        });
+      }
+
+      res.json({
+        message: "Cart cleared"
+      });
+
+    }
+  );
+
+});
+
+app.put("/orders/:id", (req, res) => {
+  const { status } = req.body;
+
+  const sql =
+    "UPDATE orders SET status = ? WHERE order_id = ?";
+
+  db.query(sql, [status, req.params.id], (err) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    res.json({
+      message: "Order status updated successfully",
+    });
+  });
+});
+
+
+const updateOrderStatus = async (id, status) => {
+  try {
+    await axios.put(`http://localhost:5000/orders/${id}`, {
+      status,
+    });
+
+    const orderRes = await axios.get(
+      "http://localhost:5000/orders"
+    );
+
+    setOrders(orderRes.data);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 
 /* SERVER START */
