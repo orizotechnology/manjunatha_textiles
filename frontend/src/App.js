@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Orders from "./pages/Orders";
-import AdminLayout from "./admin/AdminLayout";
+import Admin from "./pages/Admin";
 import About from "./pages/About";
 import Collections from "./pages/Collections";
 import ProductDetails from "./pages/ProductDetails";
@@ -27,7 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin" element={<AdminLayout />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/about" element={<About />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/product/:id" element={<ProductDetails />} />
