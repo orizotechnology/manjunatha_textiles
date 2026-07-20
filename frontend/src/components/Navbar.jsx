@@ -45,6 +45,10 @@ const Navbar = () => {
           Contact
         </Link>
 
+        <Link to="/admin">Admin</Link>
+
+        <Link to="/orders">Orders</Link>
+
 
       </div>
 

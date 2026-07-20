@@ -1,6 +1,25 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
+import { Bar, Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend
+);
 function Admin() {
   const initialProduct = {
     product_id: "",
@@ -20,7 +39,9 @@ function Admin() {
   const [product, setProduct] = useState(initialProduct);
   const [products, setProducts] = useState([]);
   const [editMode, setEditMode] = useState(false);
-
+  const [orders, setOrders] = useState([]);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
   const handleChange = (e) => {
     setProduct({
       ...product,
@@ -103,20 +124,44 @@ function Admin() {
     }
   };
 
+  const updateOrderStatus = async (id, status) => {
+  try {
+    await axios.put(`http://localhost:5000/orders/${id}`, {
+      status,
+    });
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/products")
-      .then((res) => {
-        setProducts(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    const orderRes = await axios.get(
+      "http://localhost:5000/orders"
+    );
+
+    setOrders(orderRes.data);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+useEffect(() => {
+  const loadData = async () => {
+    try {
+      const productRes = await axios.get("http://localhost:5000/products");
+      const orderRes = await axios.get("http://localhost:5000/orders");
+
+      setProducts(productRes.data);
+      setOrders(orderRes.data);
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  loadData();
+}, []);
+  
 
 
   const totalProducts = products.length;
+  const totalOrders = orders.length;
 const featuredProducts = products.filter(
   (item) => item.featured === 1
 ).length;
@@ -127,72 +172,156 @@ const newArrivals = products.filter(
   (item) => item.new_arrival === 1
 ).length;
 
+const barData = {
+  labels: [
+    "Products",
+    "Featured",
+    "Trending",
+    "New Arrivals",
+    "Orders",
+  ],
+  datasets: [
+    {
+      label: "Dashboard",
+      data: [
+        totalProducts,
+        featuredProducts,
+        trendingProducts,
+        newArrivals,
+        totalOrders,
+      ],
+      backgroundColor: [
+        "#4CAF50",
+        "#2196F3",
+        "#FF9800",
+        "#9C27B0",
+        "#E91E63",
+      ],
+    },
+  ],
+};
+
+const pieData = {
+  labels: [
+    "Featured",
+    "Trending",
+    "New Arrivals",
+  ],
+  datasets: [
+    {
+      data: [
+        featuredProducts,
+        trendingProducts,
+        newArrivals,
+      ],
+      backgroundColor: [
+        "#2196F3",
+        "#FF9800",
+        "#9C27B0",
+      ],
+    },
+  ],
+};
 
 
-  return (
-    <div style={{ padding: "20px" }}>
 
-      <h2>Admin Panel</h2>
-      <div
+ return (
+  <div style={{ padding: "20px" }}>
+
+    <h2>Admin Panel</h2>
+
+    <div
   style={{
     display: "flex",
-    gap: "20px",
+    gap: "40px",
+    marginBottom: "40px",
     flexWrap: "wrap",
-    marginBottom: "30px",
   }}
 >
-  <div
-    style={{
-      background: "#4CAF50",
-      color: "#fff",
-      padding: "20px",
-      borderRadius: "10px",
-      width: "180px",
-    }}
-  >
-    <h3>Total Products</h3>
-    <h2>{totalProducts}</h2>
+  <div style={{ width: "500px" }}>
+    <Bar data={barData} />
   </div>
 
-  <div
-    style={{
-      background: "#2196F3",
-      color: "#fff",
-      padding: "20px",
-      borderRadius: "10px",
-      width: "180px",
-    }}
-  >
-    <h3>Featured</h3>
-    <h2>{featuredProducts}</h2>
-  </div>
-
-  <div
-    style={{
-      background: "#FF9800",
-      color: "#fff",
-      padding: "20px",
-      borderRadius: "10px",
-      width: "180px",
-    }}
-  >
-    <h3>Trending</h3>
-    <h2>{trendingProducts}</h2>
-  </div>
-
-  <div
-    style={{
-      background: "#9C27B0",
-      color: "#fff",
-      padding: "20px",
-      borderRadius: "10px",
-      width: "180px",
-    }}
-  >
-    <h3>New Arrivals</h3>
-    <h2>{newArrivals}</h2>
+  <div style={{ width: "350px" }}>
+    <Pie data={pieData} />
   </div>
 </div>
+
+    <div
+      style={{
+        display: "flex",
+        gap: "20px",
+        flexWrap: "wrap",
+        marginBottom: "30px",
+      }}
+    >
+      <div
+        style={{
+          background: "#4CAF50",
+          color: "#fff",
+          padding: "20px",
+          borderRadius: "10px",
+          width: "180px",
+        }}
+      >
+        <h3>Total Products</h3>
+        <h2>{totalProducts}</h2>
+      </div>
+
+      <div
+        style={{
+          background: "#2196F3",
+          color: "#fff",
+          padding: "20px",
+          borderRadius: "10px",
+          width: "180px",
+        }}
+      >
+        <h3>Featured</h3>
+        <h2>{featuredProducts}</h2>
+      </div>
+
+      <div
+        style={{
+          background: "#FF9800",
+          color: "#fff",
+          padding: "20px",
+          borderRadius: "10px",
+          width: "180px",
+        }}
+      >
+        <h3>Trending</h3>
+        <h2>{trendingProducts}</h2>
+      </div>
+
+      <div
+        style={{
+          background: "#9C27B0",
+          color: "#fff",
+          padding: "20px",
+          borderRadius: "10px",
+          width: "180px",
+        }}
+      >
+        <h3>New Arrivals</h3>
+        <h2>{newArrivals}</h2>
+      </div>
+
+      <div
+        style={{
+          background: "#E91E63",
+          color: "#fff",
+          padding: "20px",
+          borderRadius: "10px",
+          width: "180px",
+        }}
+      >
+        <h3>Total Orders</h3>
+        <h2>{totalOrders}</h2>
+      </div>
+
+    </div>
+
 
 
       <input
@@ -228,14 +357,20 @@ const newArrivals = products.filter(
       <br /><br />
 
 
-      <input
-        type="number"
-        name="category_id"
-        placeholder="Category ID"
-        value={product.category_id}
-        onChange={handleChange}
-      />
-
+     <select
+  name="category_id"
+  value={product.category_id}
+  onChange={handleChange}
+>
+  <option value="">Select Category</option>
+  <option value="1">Men's Wear</option>
+  <option value="2">Women's Wear</option>
+  <option value="3">Kids Wear</option>
+  <option value="4">Traditional Wear</option>
+  <option value="5">Casual Wear</option>
+  <option value="6">Party Wear</option>
+  <option value="7">Seasonal Collections</option>
+</select>
       <br /><br />
 
 
@@ -281,7 +416,56 @@ const newArrivals = products.filter(
       />
 
       <br /><br />
+    {/* Featured */}
+<div style={{ marginBottom: "10px" }}>
+  <label>
+    <input
+      type="checkbox"
+      checked={product.featured === 1}
+      onChange={(e) =>
+        setProduct({
+          ...product,
+          featured: e.target.checked ? 1 : 0,
+        })
+      }
+    />
+    Featured Product
+  </label>
+</div>
 
+{/* Trending */}
+<div style={{ marginBottom: "10px" }}>
+  <label>
+    <input
+      type="checkbox"
+      checked={product.trending === 1}
+      onChange={(e) =>
+        setProduct({
+          ...product,
+          trending: e.target.checked ? 1 : 0,
+        })
+      }
+    />
+    Trending Product
+  </label>
+</div>
+
+{/* New Arrival */}
+<div style={{ marginBottom: "15px" }}>
+  <label>
+    <input
+      type="checkbox"
+      checked={product.new_arrival === 1}
+      onChange={(e) =>
+        setProduct({
+          ...product,
+          new_arrival: e.target.checked ? 1 : 0,
+        })
+      }
+    />
+    New Arrival
+  </label>
+</div>
 
       <button
         onClick={() => {
@@ -299,13 +483,82 @@ const newArrivals = products.filter(
       )}
 
 
-      <hr />
+<h2>Customer Orders</h2>
 
+<table
+  border="1"
+  cellPadding="10"
+  style={{
+    width: "100%",
+    borderCollapse: "collapse",
+    marginTop: "20px",
+  }}
+>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Customer</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Phone</th>
+      <th>Address</th>
+       <th>Status</th>
+      <th>Date</th>
+    </tr>
+  </thead>
 
-      <h3>All Products</h3>
+  <tbody>
+    {orders.map((order) => (
+      <tr key={order.order_id}>
+        <td>{order.order_id}</td>
+        <td>{order.customer_name}</td>
+        <td>{order.product_name}</td>
+        <td>{order.quantity}</td>
+        <td>{order.phone}</td>
+        <td>{order.address}</td>
+        <td>
+  <select
+    value={order.status}
+    onChange={(e) =>
+      updateOrderStatus(order.order_id, e.target.value)
+    }
+  >
+    <option>Pending</option>
+    <option>Shipped</option>
+    <option>Delivered</option>
+  </select>
+</td>
+        <td>
+          {new Date(order.created_at).toLocaleDateString()}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
+<hr />
 
-      {products.map((item) => (
+<h3>All Products</h3>
+
+<input
+  type="text"
+  placeholder="Search Product..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  style={{
+    width: "300px",
+    padding: "10px",
+    margin: "15px 0",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+  }}
+/>
+
+    {products
+  .filter((item) =>
+    item.product_name.toLowerCase().includes(search.toLowerCase())
+  )
+  .map((item) => (
 
         <div
           key={item.product_id}
@@ -315,12 +568,25 @@ const newArrivals = products.filter(
             margin: "10px 0",
           }}
         >
+        <img
+  src={`/${item.image1}`}
+  alt={item.product_name}
+  style={{
+    width: "120px",
+    height: "120px",
+    objectFit: "cover",
+    borderRadius: "10px",
+  }}
+/>
 
           <h4>{item.product_name}</h4>
 
           <p>{item.description}</p>
           <p>Category: {item.category_name}</p>
-
+           <p><strong>Price:</strong> ₹{item.price}</p>
+<p><strong>Size:</strong> {item.size}</p>
+<p><strong>Color:</strong> {item.color}</p>
+<p><strong>Material:</strong> {item.material}</p>
 
           <button
             onClick={() => {

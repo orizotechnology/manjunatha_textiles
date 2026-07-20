@@ -1,0 +1,87 @@
+.success-page {
+
+  min-height: 80vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f8f8f8;
+
+}
+
+
+.success-box {
+
+  background: white;
+
+  width: 450px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  border-radius: 15px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+
+}
+
+
+.success-icon {
+
+  font-size: 60px;
+
+  margin-bottom:20px;
+
+}
+
+
+.success-box h1 {
+
+  font-size:28px;
+
+  margin-bottom:20px;
+
+  color:#111;
+
+}
+
+
+.success-box p {
+
+  font-size:16px;
+
+  line-height:1.6;
+
+  color:#555;
+
+}
+
+
+.success-box button {
+
+  margin-top:25px;
+
+  padding:14px 30px;
+
+  background:#111;
+
+  color:white;
+
+  border:none;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  font-size:16px;
+
+}
+
+
+.success-box button:hover {
+
+  background:#333;
+
+}

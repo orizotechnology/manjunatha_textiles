@@ -36,71 +36,77 @@ function Cart() {
     }
   };
 
-  // Total Amount
   const total = cart.reduce(
     (sum, item) => sum + Number(item.price) * Number(item.quantity),
     0
   );
 
   return (
-    <div className="cart-container">
-      <h1 className="cart-title">🛒 My Cart</h1>
+  <div className="cart-container">
 
-      {cart.length === 0 ? (
-        <p className="empty-cart">Your cart is empty.</p>
-      ) : (
-        <>
-          <div className="cart-grid">
-            {cart.map((item) => (
-              <div className="cart-card" key={item.cart_id}>
-                <img
-                  className="cart-image"
-                  src={`/${item.image1}`}
-                  alt={item.product_name}
-                />
+    <h1 className="cart-title">My Shopping Cart</h1>
 
-                <div className="cart-info">
-                  <h3>{item.product_name}</h3>
+    {cart.length === 0 ? (
+      <p className="empty-cart">Your cart is empty.</p>
+    ) : (
+      <>
+        <div className="cart-grid">
 
-                  <p>{item.description}</p>
+          {cart.map((item) => (
+            <div className="cart-card" key={item.cart_id}>
 
-                  <p>
-                    <b>Color:</b> {item.color}
-                  </p>
+              <img
+                src={`/${item.image1}`}
+                alt={item.product_name}
+                className="cart-image"
+              />
 
-                  <p className="quantity">
-                    Quantity: {item.quantity}
-                  </p>
+              <div className="cart-info">
 
-                  <h3 className="price">
-  ₹ {item.price || 0}
-</h3>
+                <h3>{item.product_name}</h3>
 
-                  <button
-                    className="remove-btn"
-                    onClick={() => removeItem(item.cart_id)}
-                  >
-                    Remove
-                  </button>
-                </div>
+                <p>{item.description}</p>
+
+                <p><strong>Color:</strong> {item.color}</p>
+
+                <p className="quantity">
+                  Qty : {item.quantity}
+                </p>
+
+                <h2 className="price">
+                  ₹{item.price}
+                </h2>
+
+                <button
+                  className="remove-btn"
+                  onClick={() => removeItem(item.cart_id)}
+                >
+                  Remove
+                </button>
+
               </div>
-            ))}
-          </div>
 
-          <div className="cart-summary">
-            <h2>Total : ₹ {total.toFixed(2)}</h2>
+            </div>
+          ))}
 
-           <button
-  className="checkout-btn"
-  onClick={() => navigate("/checkout")}
->
-  Proceed to Checkout
-</button>
-          </div>
-        </>
-      )}
-    </div>
-  );
+        </div>
+
+        <div className="cart-summary">
+
+          <h2>Total : ₹{total.toFixed(2)}</h2>
+
+          <button
+            className="checkout-btn"
+            onClick={() => navigate("/checkout")}
+          >
+            Proceed to Checkout
+          </button>
+
+        </div>
+      </>
+    )}
+
+  </div>
+);
 }
-
 export default Cart;

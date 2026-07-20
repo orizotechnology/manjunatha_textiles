@@ -1,54 +1,112 @@
+import "./Contact.css";
+
 function Contact() {
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>Contact Us</h1>
+    <div className="contact-page">
 
-      <form style={{ maxWidth: "500px" }}>
-        <input
-          type="text"
-          placeholder="Your Name"
-          style={{ width: "100%", padding: "10px", marginBottom: "15px" }}
-        />
+      <div className="contact-header">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you. Get in touch with us today.</p>
+      </div>
 
-        <input
-          type="text"
-          placeholder="Mobile Number"
-          style={{ width: "100%", padding: "10px", marginBottom: "15px" }}
-        />
+      <div className="contact-container">
 
-        <textarea
-          placeholder="Your Message"
-          rows="5"
-          style={{ width: "100%", padding: "10px", marginBottom: "15px" }}
-        ></textarea>
+        {/* Contact Form */}
+        <div className="contact-form">
 
-        <button type="button">
-          Send Message
-        </button>
-      </form>
+          <h2>Send Message</h2>
 
-      <hr />
+          <form>
 
-      <h2>Manjunath Textiles</h2>
+            <input
+              type="text"
+              placeholder="Your Name"
+            />
 
-<p>📍 Madurai, Tamil Nadu</p>
-<p>📞 +91 XXXXXXXXXX</p>
-<p>✉️ manjunathtextiles@gmail.com</p>
-      <h2>Google Map</h2>
+            <input
+              type="email"
+              placeholder="Email Address"
+            />
 
-      <iframe
-        title="map"
-        src="https://www.google.com/maps?q=Madurai&output=embed"
-        width="100%"
-        height="300"
-        style={{ border: 0 }}
-      ></iframe>
+            <input
+              type="text"
+              placeholder="Mobile Number"
+            />
 
-      <h2>Follow Us</h2>
+            <textarea
+              rows="6"
+              placeholder="Your Message"
+            ></textarea>
 
-      <p>📘 Facebook</p>
-      <p>📷 Instagram</p>
-      <p>🐦 Twitter</p>
+            <button type="button">
+              Send Message
+            </button>
+
+          </form>
+
+        </div>
+
+        {/* Contact Details */}
+        <div className="contact-info">
+
+          <h2>Store Information</h2>
+
+          <p>
+            📍 <strong>Address:</strong><br />
+            Sri Manjunatha Textiles,<br />
+            Malur, Karnataka
+          </p>
+
+          <p>
+            📞 <strong>Phone:</strong><br />
+            +91 8277181949
+          </p>
+
+          <p>
+            ✉️ <strong>Email:</strong><br />
+            srimanjunathatextilesofficial@gmail.com
+          </p>
+
+          <p>
+            🕒 <strong>Business Hours:</strong><br />
+            Monday - Saturday<br />
+            9:30 AM - 8:30 PM
+          </p>
+
+        </div>
+
+      </div>
+
+      {/* Google Map */}
+      <div className="map-section">
+
+        <h2>Find Our Store</h2>
+
+        <iframe
+          title="Sri Manjunatha Textiles"
+          src="https://www.google.com/maps?q=Malur,Karnataka&output=embed"
+          width="100%"
+          height="400"
+          style={{ border: 0 }}
+          loading="lazy"
+        ></iframe>
+
+      </div>
+
+      {/* Social Media */}
+      <div className="social-section">
+
+        <h2>Follow Us</h2>
+
+        <div className="social-icons">
+          <span>📘 Facebook</span>
+          <span>📷 Instagram</span>
+          <span>▶️ YouTube</span>
+          <span>📌 Pinterest</span>
+        </div>
+
+      </div>
+
     </div>
   );
 }

@@ -19,7 +19,7 @@ function Products() {
       });
   }, []);
 
-  // ADD TO CART
+  // Add To Cart
   const addToCart = async (productId) => {
     try {
       const res = await axios.post("http://localhost:5000/cart", {
@@ -48,23 +48,30 @@ function Products() {
   return (
     <div className="products-page">
 
-      <h1 className="products-title">Our Products</h1>
+      {/* Heading */}
+
+      <div className="products-header">
+        <h1 className="products-title">Our Collections</h1>
+        <p>Discover Premium Fashion Wear</p>
+      </div>
 
       {/* Search + Category */}
-      <div className="filter-section">
-        <input
-  className="search-box"
-  type="text"
-  placeholder="🔍 Search Product..."
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-/>
 
-       <select
-  className="category-select"
-  value={category}
-  onChange={(e) => setCategory(e.target.value)}
->
+      <div className="filter-section">
+
+        <input
+          className="search-box"
+          type="text"
+          placeholder="🔍 Search Product..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <select
+          className="category-select"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option>All</option>
           <option>Men's Wear</option>
           <option>Women's Wear</option>
@@ -74,56 +81,62 @@ function Products() {
           <option>Party Wear</option>
           <option>Seasonal Collections</option>
         </select>
+
       </div>
 
       {/* Products */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "20px",
-        }}
-      >
-        {filteredProducts.map((item) => (
-          <div className="product-card" key={item.product_id}>
-            
-<img
-  src={`/${item.image1}`}
-  alt={item.product_name}
-  className="product-image"
-/>
 
-           <div className="product-grid">
+      <div className="products-grid">
+
+        {filteredProducts.map((item) => (
+
+          <div className="product-card" key={item.product_id}>
+
+            <img
+              src={`/${item.image1}`}
+              alt={item.product_name}
+              className="product-image"
+            />
+
+            <div className="product-info">
+
               <h3>{item.product_name}</h3>
 
-              <p>{item.description}</p>
-
-              <p>
-                <strong>Category:</strong> {item.category_name}
+              <p className="product-desc">
+                {item.description}
               </p>
 
-              <p>
-                <strong>Color:</strong> {item.color}
+              <p className="product-price">
+                ₹ {item.price}
+              </p>
+
+              <p className="product-category">
+                {item.category_name}
               </p>
 
               <div className="product-buttons">
-  <button
-    className="cart-btn"
-    onClick={() => addToCart(item.product_id)}
-  >
-    🛒 Add to Cart
-  </button>
 
-  <Link to={`/product/${item.product_id}`}>
-    <button className="details-btn">
-      View Details
-    </button>
-  </Link>
-</div>
+                <button
+                  className="cart-btn"
+                  onClick={() => addToCart(item.product_id)}
+                >
+                  🛒 Add to Cart
+                </button>
+
+                <Link to={`/product/${item.product_id}`}>
+                  <button className="details-btn">
+                    View Details
+                  </button>
+                </Link>
+
+              </div>
+
             </div>
+
           </div>
+
         ))}
+
       </div>
 
     </div>
