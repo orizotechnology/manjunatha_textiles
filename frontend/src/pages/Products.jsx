@@ -93,9 +93,12 @@ function Products() {
           <div className="product-card" key={item.product_id}>
 
             <img
-              src={`/${item.image1}`}
+              src={`/images/${item.image1}`}
               alt={item.product_name}
               className="product-image"
+              onError={(e) => {
+                e.target.src = "/images/no-image.png";
+              }}
             />
 
             <div className="product-info">
