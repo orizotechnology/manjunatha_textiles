@@ -152,7 +152,7 @@ function ProductManagement() {
         {products
           .filter((item) => item.product_name.toLowerCase().includes(search.toLowerCase()))
           .map((item) => (
-            <div key={item.product_id} className="product-card">
+            <div key={item.product_id} className="admin-xproduct-card">
               <img src={`/${item.image1}`} alt={item.product_name} />
               <h4>{item.product_name}</h4>
               <p>{item.description}</p>
