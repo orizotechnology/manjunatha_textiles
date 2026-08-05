@@ -11,31 +11,35 @@ function ProductDetails() {
   const [mainImage, setMainImage] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  
+useEffect(() => {
+  axios
+    .get("http://localhost:5000/products")
+    .then((res) => {
+      console.log("API RESPONSE:", res.data);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/products")
-      .then((res) => {
-        const selected = res.data.find(
-          (item) => item.product_id === Number(id)
+      const selected = res.data.find(
+        (item) => item.product_id === Number(id)
+      );
+
+      console.log("MATCHED PRODUCT:", selected);
+
+      setProduct(selected);
+
+      if (selected) {
+        setMainImage(selected.image1);
+
+        const related = res.data.filter(
+          (item) =>
+            item.category_name === selected.category_name &&
+            item.product_id !== selected.product_id
         );
 
-        setProduct(selected);
-
-        if (selected) {
-          setMainImage(selected.image1);
-
-          const related = res.data.filter(
-            (item) =>
-              item.category_name === selected.category_name &&
-              item.product_id !== selected.product_id
-          );
-
-          setRelatedProducts(related.slice(0, 4));
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
+        setRelatedProducts(related.slice(0, 4));
+      }
+    })
+    .catch((err) => console.log(err));
+}, [id]);
 
   const addToCart = async () => {
     try {
@@ -68,6 +72,14 @@ function ProductDetails() {
   if (!product)
     return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
 
+  // Collect all non-empty image columns into one array for the gallery
+  const galleryImages = [
+    product.image1,
+    product.image2,
+    product.image3,
+    product.image4,
+  ].filter(Boolean);
+
   return (
     <div className="product-details-page">
 
@@ -75,10 +87,26 @@ function ProductDetails() {
 
         <div className="product-image-section">
           <img
-            src={`/${mainImage}`}
+            src={`/images/${mainImage}`}
             alt={product.product_name}
             className="main-image"
           />
+
+          {galleryImages.length > 1 && (
+            <div className="thumbnail-row">
+              {galleryImages.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={`/${img}`}
+                  alt={`${product.product_name} view ${idx + 1}`}
+                  className={`thumbnail ${
+                    mainImage === img ? "thumbnail-active" : ""
+                  }`}
+                  onClick={() => setMainImage(img)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="product-info-section">
