@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import "./Gallery.css";
 
 function Gallery() {
   const [products, setProducts] = useState([]);
@@ -14,42 +15,37 @@ function Gallery() {
   }, []);
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1 style={{ textAlign: "center" }}>Gallery</h1>
+    <div className="gallery-page">
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-          gap: "20px",
-          marginTop: "30px",
-        }}
-      >
+      <div className="gallery-header">
+        <h1>Fashion Gallery</h1>
+        <p>
+          Explore our premium collection crafted with elegance, comfort, and
+          timeless style.
+        </p>
+      </div>
+
+      <div className="gallery-grid">
         {products.map((item) => (
-          <div
-            key={item.product_id}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "10px",
-              overflow: "hidden",
-            }}
-          >
-            <img
-              src={`/${item.image1}`}
-              alt={item.product_name}
-              style={{
-                width: "100%",
-                height: "250px",
-                objectFit: "cover",
-              }}
-            />
+          <div className="gallery-card" key={item.product_id}>
 
-            <div style={{ padding: "10px" }}>
-              <h3>{item.product_name}</h3>
+            <div className="gallery-image-box">
+              <img
+                src={`/images/${item.image1}`}
+                alt={item.product_name}
+                className="gallery-image"
+              />
+
+              <div className="gallery-overlay">
+                <h3>{item.product_name}</h3>
+                <p>₹ {item.price}</p>
+              </div>
             </div>
+
           </div>
         ))}
       </div>
+
     </div>
   );
 }
