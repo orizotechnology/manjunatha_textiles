@@ -14,7 +14,6 @@ function About() {
           </p>
         </div>
       </section>
-
       {/* Story */}
       <section className="about-section">
         <div className="about-text">
